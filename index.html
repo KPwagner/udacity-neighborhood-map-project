@@ -11,10 +11,10 @@
 	<body>
 		<div id="list">
 			<button data-bind="click: addLocation">Add Location</button>
-			<form data-bind="submit: filterLocations">
-				<input type="text">
+			<form data-bind="submit: addMarkers">
+				<input type="text" data-bind="value: currentFilter">
 			</form>
-			<ul data-bind="foreach: locations">
+			<ul data-bind="foreach: filteredLocations">
 				<li data-bind="text: name"></li>
 			</ul>
 		</div>

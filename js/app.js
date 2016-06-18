@@ -59,8 +59,21 @@ function MapViewModel(){
 
 	self.locations = ko.observableArray([
 		new MapLocation("Pizza Ranch", 43.110068, -94.678419, 'pizza'),
-		new MapLocation("Sum Hing", 43.110831, -94.678963, 'chinese')
+		new MapLocation("Sum Hing", 43.110831, -94.678963, 'chinese'),
+		new MapLocation("Don Jose's", 43.111546, -94.678973, 'mexican')
 	]);
+
+	self.currentFilter = ko.observable();
+
+	self.filteredLocations = ko.computed( function(){
+		if (!self.currentFilter()) {
+			return self.locations();
+		} else {
+			return ko.utils.arrayFilter(self.locations(), function(loc){
+				return loc.filter == self.currentFilter();
+			});
+		}
+	});
 
 	self.addLocation = function(){
 		self.locations.push(new MapLocation("Tester", 43.111546, -94.678973));
@@ -69,7 +82,7 @@ function MapViewModel(){
 
 	self.addMarkers = function() {
 		markers = [];
-		var locations = self.locations();
+		var locations = self.filteredLocations();
 		for (var i=0; i<locations.length; i++){
 			var locationPosition = {};
 			locationPosition.lat = locations[i].lat;
@@ -84,14 +97,8 @@ function MapViewModel(){
 	}
 
 	self.filterLocations = function(){
-		console.log(self.locations.removeAll());
+		// console.log(self.locations.removeAll());
 	}
-
-	// self.setMapOnMarkers = function() {
-	// 	for (var i=0; i<markers.length; i++) {
-	// 	    markers[i].setMap(map);
-	// 	}
-	// }
 
 	self.testLog = function(){
 		console.log("this is only a test");
