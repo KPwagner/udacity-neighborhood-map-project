@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Udacity Neighborhood Map Project</title>
+		<meta name="viewport" content="initial-scale=1.0">
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="css/style.css">
+		<script src="js/jquery-3.0.0.min.js"></script>
+		<script src="js/knockout-3.4.0.js"></script>
+	</head>
+	<body>
+		<div id="list">
+			<button data-bind="click: addLocation">Add Location</button>
+			<form data-bind="submit: filterLocations">
+				<input type="text">
+			</form>
+			<ul data-bind="foreach: locations">
+				<li data-bind="text: name"></li>
+			</ul>
+		</div>
+		<div id="map"></div>
+		<script src="js/app.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlZ9pmEJ0PFndtRcyrAINanVtBdv9X-7Q&callback=initMap" async defer></script>
+	</body>
+</html>

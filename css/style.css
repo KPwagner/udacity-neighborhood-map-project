@@ -1,0 +1,19 @@
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+#list {
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 20%;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 1;
+}
+
+#map {
+	height: 100%;
+}
