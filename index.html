@@ -9,13 +9,14 @@
 		<script src="js/knockout-3.4.0.js"></script>
 	</head>
 	<body>
-		<div id="list">
-			<button data-bind="click: addLocation">Add Location</button>
-			<form data-bind="submit: addMarkers">
-				<input type="text" data-bind="value: currentFilter">
+		<div id="sidebar">
+			<h1>Emmetsburg Eats</h1>
+			<h2>Search for type of food (e.g. pizza, chinese) or meal (e.g. lunch)</h2>
+			<form data-bind="submit: filterLocations">
+				<input type="text" placeholder="Enter your search here!" data-bind="value: currentFilter">
 			</form>
-			<ul data-bind="foreach: filteredLocations">
-				<li data-bind="text: name"></li>
+			<ul data-bind="foreach: filteredLocations" class="location-list">
+				<li data-bind="text: name, click: $root.clickTest" class="location-list-item"></li>
 			</ul>
 		</div>
 		<div id="map"></div>

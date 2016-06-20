@@ -45,6 +45,7 @@ function initMap(){
 	myMVM.addMarkers();
 }
 
+// The MapLocation class is used to create out points of interest on the map.
 function MapLocation(name, lat, lng, filter) {
 	var self = this;
 
@@ -54,13 +55,14 @@ function MapLocation(name, lat, lng, filter) {
 	self.filter = filter;
 }
 
+// MapViewModel is the Knockout view model
 function MapViewModel(){
 	var self = this;
 
 	self.locations = ko.observableArray([
-		new MapLocation("Pizza Ranch", 43.110068, -94.678419, 'pizza'),
-		new MapLocation("Sum Hing", 43.110831, -94.678963, 'chinese'),
-		new MapLocation("Don Jose's", 43.111546, -94.678973, 'mexican')
+		new MapLocation("Pizza Ranch", 43.110068, -94.678419, 'pizza lunch'),
+		new MapLocation("Sum Hing", 43.110831, -94.678963, 'chinese lunch dinner'),
+		new MapLocation("Don Jose's", 43.111546, -94.678973, 'mexican dinner')
 	]);
 
 	self.currentFilter = ko.observable();
@@ -70,38 +72,84 @@ function MapViewModel(){
 			return self.locations();
 		} else {
 			return ko.utils.arrayFilter(self.locations(), function(loc){
-				return loc.filter == self.currentFilter();
+				// the input filter string
+				var filter = self.currentFilter().toLowerCase();
+				// the 'filter' string for location containing terms to use by filter
+				var locationStr = loc.filter
+				// index value of the filter in our locationStr; -1 if not present
+				var strIndex = locationStr.indexOf(filter);
+				// if the filter term is present in out location filter string,
+				// return true to include the location in currentFilter
+				if (strIndex == -1) {
+					return false;
+				} else {
+					return true;
+				};
 			});
 		}
 	});
 
 	self.addLocation = function(){
 		self.locations.push(new MapLocation("Tester", 43.111546, -94.678973));
-		self.addMarkers();
+	};
+
+	self.addMarker = function(name, locationPosition){
+		var marker = new google.maps.Marker({
+			name: name,
+			position: locationPosition,
+			map: map
+		});
+		markers.push(marker);
+	};
+
+	self.setMapOnAll = function(map){
+		for (var i=0; i<markers.length; i++){
+			markers[i].setMap(map);
+		}
+	};
+
+	self.clearMarkers = function(){
+		self.setMapOnAll(null);
+	};
+
+	self.deleteMarkers = function(){
+		self.clearMarkers();
+		markers = [];
+	}
+
+	self.showMarkers = function(){
+		self.setMapOnAll(map);
 	};
 
 	self.addMarkers = function() {
-		markers = [];
 		var locations = self.filteredLocations();
 		for (var i=0; i<locations.length; i++){
+			var name = locations[i].name;
 			var locationPosition = {};
 			locationPosition.lat = locations[i].lat;
 			locationPosition.lng = locations[i].lng;
-			var marker = new google.maps.Marker({
-				position: locationPosition,
-				map: map
-			});
-			markers.push(marker)
+			self.addMarker(name, locationPosition);
 		}
-		console.log(markers);
-	}
+	};
 
 	self.filterLocations = function(){
-		// console.log(self.locations.removeAll());
-	}
+		self.deleteMarkers();
+		self.addMarkers();
+		// works without showMarkers, which sets the map, but google examples
+		// seem to favor explicitly setting the map, so showMarkers included
+		self.showMarkers();
+	};
 
-	self.testLog = function(){
-		console.log("this is only a test");
+	self.clickTest = function(e){
+		var listName = e.name;
+		for (var i=0; i<markers.length; i++){
+			var marker = markers[i];
+			var markerName = marker.name;
+			marker.setAnimation(null);
+			if (listName == markerName){
+				marker.setAnimation(google.maps.Animation.BOUNCE);
+			}
+		}
 	};
 }
 
