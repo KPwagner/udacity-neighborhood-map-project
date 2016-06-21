@@ -23,23 +23,19 @@
 //   marker.setMap(map);
 // }
 
-var map, markers;
+var map, markers, infoWindow;
 
 markers = [];
 
-// markers = [
-// 	{name: "Pizza Ranch",
-// 	lat: 43.110068,
-// 	lng: -94.678419},
-// 	{name: "Sum Hing",
-// 	lat: 43.110831,
-// 	lng: -94.678963}
-// ];
 
 function initMap(){
 	map = new google.maps.Map(document.getElementById("map"), {
 		center: {lat: 43.112, lng: -94.680},
 		zoom: 16
+	});
+
+	infoWindow = new google.maps.InfoWindow({
+	    content: "test"
 	});
 
 	myMVM.addMarkers();
@@ -99,6 +95,11 @@ function MapViewModel(){
 			position: locationPosition,
 			map: map
 		});
+
+		marker.addListener('click', function(){
+			infoWindow.close();
+			infoWindow.open(map, marker);
+		})
 		markers.push(marker);
 	};
 
