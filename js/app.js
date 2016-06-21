@@ -35,7 +35,7 @@ function initMap(){
 	});
 
 	infoWindow = new google.maps.InfoWindow({
-	    content: "test"
+	    content: ''
 	});
 
 	myMVM.addMarkers();
@@ -97,8 +97,13 @@ function MapViewModel(){
 		});
 
 		marker.addListener('click', function(){
+			// TODO: create function for infowindow open to eliminate duplication
 			infoWindow.close();
+			infoWindow.setContent('<div id="info-window">test<br></div>');
 			infoWindow.open(map, marker);
+			setTimeout(function(){
+				$("#info-window").append("append test");
+			}, 1000);
 		})
 		markers.push(marker);
 	};
@@ -148,7 +153,13 @@ function MapViewModel(){
 			var markerName = marker.name;
 			marker.setAnimation(null);
 			if (listName == markerName){
-				marker.setAnimation(google.maps.Animation.BOUNCE);
+				// TODO: create function for infowindow open to eliminate duplication
+				infoWindow.close();
+				infoWindow.setContent('<div id="info-window">test<br></div>');
+				infoWindow.open(map, marker);
+				setTimeout(function(){
+					$("#info-window").append("append test");
+				}, 1000);
 			}
 		}
 	};
