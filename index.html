@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<div id="sidebar">
-			<h1>Emmetsburg Eats</h1>
+			<h1 data-bind="click: ajaxTest">Emmetsburg Eats</h1>
 			<h2>Search for type of food (e.g. pizza, chinese) or meal (e.g. lunch)</h2>
 			<form data-bind="submit: filterLocations">
 				<input type="text" placeholder="Enter your search here!" data-bind="value: currentFilter">

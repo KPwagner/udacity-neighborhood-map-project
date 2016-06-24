@@ -160,7 +160,12 @@ function MapViewModel(){
 		setTimeout(function(){
 			$("#info-window").append("append test");
 		}, 1000);
-	}
+	};
+
+	self.ajaxTest = function(){
+		var data = $.ajax("https://api.foursquare.com/v2/venues/4dced120ae603b786d39708a?client_id=UYBI4GGI2LFQ2153VJ053EDKAGB1OUBTUQ4UBDMDUJXE50YG&client_secret=E4HB1GCMBJJ5CUAZQKWJ4NAGLW4DBO4VDPMRDVXEDZKSF4AR&v=20160621");
+		console.log(data);
+	};
 }
 
 myMVM = new MapViewModel();
