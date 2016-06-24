@@ -30,8 +30,8 @@ markers = [];
 
 function initMap(){
 	map = new google.maps.Map(document.getElementById("map"), {
-		center: {lat: 43.112, lng: -94.680},
-		zoom: 16
+		center: {lat: 43.115, lng: -94.685},
+		zoom: 15
 	});
 
 	infoWindow = new google.maps.InfoWindow({
@@ -99,13 +99,7 @@ function MapViewModel(){
 		});
 
 		marker.addListener('click', function(){
-			// TODO: create function for infowindow open to eliminate duplication
-			infoWindow.close();
-			infoWindow.setContent('<div id="info-window">test<br></div>');
-			infoWindow.open(map, marker);
-			setTimeout(function(){
-				$("#info-window").append("append test");
-			}, 1000);
+			showInfoWindow(name, marker);
 		})
 		markers.push(marker);
 	};
@@ -148,23 +142,25 @@ function MapViewModel(){
 		self.showMarkers();
 	};
 
-	self.clickTest = function(e){
+	self.listClick = function(e){
 		var listName = e.name;
 		for (var i=0; i<markers.length; i++){
 			var marker = markers[i];
 			var markerName = marker.name;
-			marker.setAnimation(null);
 			if (listName == markerName){
-				// TODO: create function for infowindow open to eliminate duplication
-				infoWindow.close();
-				infoWindow.setContent('<div id="info-window">test<br></div>');
-				infoWindow.open(map, marker);
-				setTimeout(function(){
-					$("#info-window").append("append test");
-				}, 1000);
+				self.showInfoWindow(markerName, marker);
 			}
 		}
 	};
+
+	self.showInfoWindow = function(name, marker){
+		infoWindow.close();
+		infoWindow.setContent('<div id="info-window">' + name + '<br></div>');
+		infoWindow.open(map, marker);
+		setTimeout(function(){
+			$("#info-window").append("append test");
+		}, 1000);
+	}
 }
 
 myMVM = new MapViewModel();
