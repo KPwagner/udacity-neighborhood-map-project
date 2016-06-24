@@ -42,13 +42,14 @@ function initMap(){
 }
 
 // The MapLocation class is used to create out points of interest on the map.
-function MapLocation(name, lat, lng, filter) {
+function MapLocation(name, lat, lng, filter, foursquareid) {
 	var self = this;
 
 	self.name = name;
 	self.lat = lat;
 	self.lng = lng;
 	self.filter = filter;
+	self.foursquareid = foursquareid;
 }
 
 // MapViewModel is the Knockout view model
@@ -56,9 +57,10 @@ function MapViewModel(){
 	var self = this;
 
 	self.locations = ko.observableArray([
-		new MapLocation("Pizza Ranch", 43.110068, -94.678419, 'pizza lunch'),
-		new MapLocation("Sum Hing", 43.110831, -94.678963, 'chinese lunch dinner'),
-		new MapLocation("Don Jose's", 43.111546, -94.678973, 'mexican dinner')
+		new MapLocation("Pizza Ranch", 43.110068, -94.678419, 'pizza lunch', '4dced120ae603b786d39708a'),
+		new MapLocation("Sum Hing", 43.110831, -94.678963, 'chinese lunch dinner', '4bed9e5091380f47f12ea018'),
+		new MapLocation("Don Jose's", 43.111546, -94.678973, 'mexican dinner', '4d83e2725ad3a093e469c4fd'),
+		new MapLocation("A&W", 43.112178, -94.694073, 'american lunch dinner', '4bb3d81b2397b713a8b338b3')
 	]);
 
 	self.currentFilter = ko.observable();
