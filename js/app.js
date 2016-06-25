@@ -1,28 +1,3 @@
-// var body = document.getElementsByTagName("body")[0];
-// var paragraph = document.createElement("p");
-// paragraph.id = "para";
-// body.appendChild(paragraph);
-// document.getElementById("para").innerHTML = "Hello World";
-
-// $("body").append("<p>Hello World</p>");
-
-// var map, marker, myLatLng, locations;
-// locations = [
-
-// ]
-// function initMap() {
-//   myLatLng = new google.maps.LatLng(43.112, -94.680);
-//   map = new google.maps.Map(document.getElementById('map'), {
-//     center: {lat: 43.112, lng: -94.680},
-//     zoom: 15
-//   });
-//   marker = new google.maps.Marker({
-//     position: myLatLng,
-//     title:"Hello World!"
-//   });
-//   marker.setMap(map);
-// }
-
 var map, markers, infoWindow;
 
 markers = [];
@@ -41,7 +16,7 @@ function initMap(){
 	myMVM.addMarkers();
 }
 
-// The MapLocation class is used to create out points of interest on the map.
+// The MapLocation class is used to create points of interest on the map.
 function MapLocation(name, lat, lng, filter, foursquareid) {
 	var self = this;
 
@@ -87,10 +62,6 @@ function MapViewModel(){
 		}
 	});
 
-	self.addLocation = function(){
-		self.locations.push(new MapLocation("Tester", 43.111546, -94.678973));
-	};
-
 	self.addMarker = function(name, locationPosition){
 		var marker = new google.maps.Marker({
 			name: name,
@@ -99,7 +70,7 @@ function MapViewModel(){
 		});
 
 		marker.addListener('click', function(){
-			showInfoWindow(name, marker);
+			self.showInfoWindow(name, marker);
 		})
 		markers.push(marker);
 	};
@@ -150,7 +121,8 @@ function MapViewModel(){
 			if (listName == markerName){
 				self.showInfoWindow(markerName, marker);
 			}
-		}
+		};
+
 	};
 
 	self.showInfoWindow = function(name, marker){
@@ -163,8 +135,10 @@ function MapViewModel(){
 	};
 
 	self.ajaxTest = function(){
-		var data = $.ajax("https://api.foursquare.com/v2/venues/4dced120ae603b786d39708a?client_id=UYBI4GGI2LFQ2153VJ053EDKAGB1OUBTUQ4UBDMDUJXE50YG&client_secret=E4HB1GCMBJJ5CUAZQKWJ4NAGLW4DBO4VDPMRDVXEDZKSF4AR&v=20160621");
-		console.log(data);
+		var url = "https://api.foursquare.com/v2/venues/4bb3d81b2397b713a8b338b3?client_id=UYBI4GGI2LFQ2153VJ053EDKAGB1OUBTUQ4UBDMDUJXE50YG&client_secret=E4HB1GCMBJJ5CUAZQKWJ4NAGLW4DBO4VDPMRDVXEDZKSF4AR&v=20160621"
+		$.getJSON(url, function(data){
+			console.log(data.response.venue.location.formattedAddress);
+		});
 	};
 }
 
