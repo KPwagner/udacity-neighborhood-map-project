@@ -1,7 +1,8 @@
-var map, markers, infoWindow;
+var map, markers, infoWindow, foursquareBaseURL, foursquareTokensURL;
 
 markers = [];
-
+foursquareBaseURL = "https://api.foursquare.com/v2/venues/"
+foursquareTokensURL = "?client_id=UYBI4GGI2LFQ2153VJ053EDKAGB1OUBTUQ4UBDMDUJXE50YG&client_secret=E4HB1GCMBJJ5CUAZQKWJ4NAGLW4DBO4VDPMRDVXEDZKSF4AR&v=20160621"
 
 function initMap(){
 	map = new google.maps.Map(document.getElementById("map"), {
@@ -62,10 +63,11 @@ function MapViewModel(){
 		}
 	});
 
-	self.addMarker = function(name, locationPosition){
+	self.addMarker = function(name, locationPosition, foursquareid){
 		var marker = new google.maps.Marker({
 			name: name,
 			position: locationPosition,
+			foursquareid: foursquareid,
 			map: map
 		});
 
@@ -99,9 +101,10 @@ function MapViewModel(){
 		for (var i=0; i<locations.length; i++){
 			var name = locations[i].name;
 			var locationPosition = {};
+			var foursquareid = locations[i].foursquareid;
 			locationPosition.lat = locations[i].lat;
 			locationPosition.lng = locations[i].lng;
-			self.addMarker(name, locationPosition);
+			self.addMarker(name, locationPosition, foursquareid);
 		}
 	};
 
@@ -127,11 +130,18 @@ function MapViewModel(){
 
 	self.showInfoWindow = function(name, marker){
 		infoWindow.close();
-		infoWindow.setContent('<div id="info-window">' + name + '<br></div>');
+		infoWindow.setContent('<div id="info-window"><span class="info-title">' + name + '</span><br><span class="info-address"></span></div>');
 		infoWindow.open(map, marker);
-		setTimeout(function(){
-			$("#info-window").append("append test");
-		}, 1000);
+		var foursquareURL = foursquareBaseURL + marker.foursquareid + foursquareTokensURL;
+		$.getJSON(foursquareURL, function(data){
+			console.log(data);
+			var formattedAddress = data.response.venue.location.formattedAddress;
+			if (formattedAddress.length > 2){
+				$(".info-address").append(data.response.venue.location.formattedAddress[0]);
+			} else {
+				$(".info-address").append("No Address Available");
+			}
+		});
 	};
 
 	self.ajaxTest = function(){

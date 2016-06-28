@@ -64,3 +64,15 @@ input {
 #map {
 	height: 100%;
 }
+
+#info-window {
+	min-width: 120px;
+}
+
+.info-title {
+	font-weight: 500;
+}
+
+.info-address {
+	font-style: italic;
+}
