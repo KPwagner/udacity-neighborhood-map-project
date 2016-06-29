@@ -123,7 +123,7 @@ function MapViewModel(){
 			var markerName = marker.name;
 			if (listName == markerName){
 				self.showInfoWindow(markerName, marker);
-			}
+			};
 		};
 
 	};
@@ -153,8 +153,11 @@ function MapViewModel(){
 }
 
 myMVM = new MapViewModel();
-
 ko.applyBindings(myMVM);
+
+$(".location-list-item").click(function(){
+	console.log($(this).text());
+});
 
 
 
