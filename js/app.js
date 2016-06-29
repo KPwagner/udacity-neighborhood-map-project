@@ -117,6 +117,7 @@ function MapViewModel(){
 	};
 
 	self.listClick = function(e){
+		// console.log($(this));
 		var listName = e.name;
 		for (var i=0; i<markers.length; i++){
 			var marker = markers[i];
@@ -133,15 +134,19 @@ function MapViewModel(){
 		infoWindow.setContent('<div id="info-window"><span class="info-title">' + name + '</span><br><span class="info-address"></span></div>');
 		infoWindow.open(map, marker);
 		var foursquareURL = foursquareBaseURL + marker.foursquareid + foursquareTokensURL;
-		$.getJSON(foursquareURL, function(data){
-			console.log(data);
-			var formattedAddress = data.response.venue.location.formattedAddress;
-			if (formattedAddress.length > 2){
-				$(".info-address").append(data.response.venue.location.formattedAddress[0]);
-			} else {
-				$(".info-address").append("No Address Available");
-			}
-		});
+		$.getJSON(foursquareURL)
+			.done(function(data){
+				var formattedAddress = data.response.venue.location.formattedAddress;
+				var $infoAddress = $(".info-address");
+				// setting the text of $infoAdress to "" prevents multiple appends of
+				// formattedAddress from multiple fast clicks
+				$infoAddress.text("");
+				if (formattedAddress.length > 2){
+					$infoAddress.append(data.response.venue.location.formattedAddress[0]);
+				} else {
+					$infoAddress.append("No Address Available");
+				}
+			})
 	};
 
 	self.ajaxTest = function(){
@@ -154,11 +159,6 @@ function MapViewModel(){
 
 myMVM = new MapViewModel();
 ko.applyBindings(myMVM);
-
-$(".location-list-item").click(function(){
-	console.log($(this).text());
-});
-
 
 
 

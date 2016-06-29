@@ -16,7 +16,7 @@
 				<input type="text" placeholder="Enter your search here!" data-bind="value: currentFilter">
 			</form>
 			<ul data-bind="foreach: filteredLocations" class="location-list">
-				<li data-bind="text: name" class="location-list-item"></li>
+				<li data-bind="text: name, click: $root.listClick" class="location-list-item"></li>
 			</ul>
 		</div>
 		<div id="map"></div>
