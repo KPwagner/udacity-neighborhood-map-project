@@ -13,11 +13,13 @@ html, body {
 h1, h2 {
 	color: white;
 	font-weight: normal;
+	margin: 0;
+	padding: 0 0 15px 0;
 }
 
 h1 {
 	font-size: 1.8em;
-	text-transform: uppercase;
+	text-align: center;
 }
 
 h2 {
@@ -39,7 +41,9 @@ input {
 }
 
 .location-list {
-	margin: 15px 0 0 0;
+	margin: 0;
+	height: 65%;
+	overflow: scroll;
 }
 
 .location-list-item {
@@ -49,16 +53,21 @@ input {
 	letter-spacing: 0.1em;
 }
 
-#sidebar {
+.sidebar {
 	position: absolute;
 	left: 0;
 	top: 0;
 	height: 100%;
 	width: 30%;
 	margin: 0;
-	padding: 10px;
+	padding: 0;
 	background-color: rgba(0,0,0,0.7);
 	z-index: 1;
+}
+
+.sidebar-top {
+	height: 35%;
+	padding: 20px 5px;
 }
 
 #map {

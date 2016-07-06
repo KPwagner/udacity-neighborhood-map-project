@@ -9,12 +9,15 @@
 		<script src="js/knockout-3.4.0.js"></script>
 	</head>
 	<body>
-		<div id="sidebar">
-			<h1 data-bind="click: ajaxTest">Emmetsburg Eats</h1>
-			<h2>Search for type of food (e.g. pizza, chinese) or meal (e.g. lunch)</h2>
-			<form data-bind="submit: filterLocations">
-				<input type="text" placeholder="Enter your search here!" data-bind="value: currentFilter">
-			</form>
+		<div class="sidebar">
+			<div class="sidebar-top">
+				<h1>Food in Emmetsburg, IA</h1>
+				<h2>Search for type of food (e.g. pizza, chinese) or meal (e.g. lunch)</h2>
+				<!-- data-bind attributes follow knockout.js syntax -->
+				<form data-bind="submit: filterLocations">
+					<input type="text" placeholder="Enter your search here!" data-bind="value: currentFilter">
+				</form>
+			</div>
 			<ul data-bind="foreach: filteredLocations" class="location-list">
 				<li data-bind="text: name, click: $root.listClick" class="location-list-item"></li>
 			</ul>

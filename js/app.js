@@ -33,10 +33,18 @@ function MapViewModel(){
 	var self = this;
 
 	self.locations = ko.observableArray([
-		new MapLocation("Pizza Ranch", 43.110068, -94.678419, 'pizza lunch', '4dced120ae603b786d39708a'),
+		new MapLocation("Pizza Ranch", 43.110068, -94.678419, 'pizza buffet chicken salad lunch dinner', '4dced120ae603b786d39708a'),
 		new MapLocation("Sum Hing", 43.110831, -94.678963, 'chinese lunch dinner', '4bed9e5091380f47f12ea018'),
-		new MapLocation("Don Jose's", 43.111546, -94.678973, 'mexican dinner', '4d83e2725ad3a093e469c4fd'),
-		new MapLocation("A&W", 43.112178, -94.694073, 'american lunch dinner', '4bb3d81b2397b713a8b338b3')
+		new MapLocation("Don Jose's", 43.111546, -94.678973, 'mexican lunch dinner', '4d83e2725ad3a093e469c4fd'),
+		new MapLocation("A&W", 43.112178, -94.694073, 'american fast food lunch dinner', '4bb3d81b2397b713a8b338b3'),
+		new MapLocation("Dublin's", 43.121483, -94.699426, 'steakhouse american dinner', '4f07a7f4e4b0671f26d5942c'),
+		new MapLocation("Pizza Hut", 43.114990, -94.699391, 'pizza buffet pasta lunch salad dinner', '4c5ffa7d3a3703bb8210e406'),
+		new MapLocation("Dairy Queen", 43.111683, -94.691821, 'fast food ice cream lunch dinner', '4dfa36d518a8ab1870bd6d9e'),
+		new MapLocation("Subway", 43.111729, -94.691090, 'sandwich lunch dinner', '4e1e1ebfae6008881fd00618'),
+		new MapLocation("Kirby's", 43.112060, -94.690508, 'american breakfast lunch dinner', '4c851b3ad92ea0936d9b6272'),
+		new MapLocation("Your Family Bakery", 43.112057, -94.679220, 'breakfast donuts rolls bread', '50c3582ae4b049fc97496f1f'),
+		new MapLocation("Kimbuck's", 43.110232, -94.678929, 'lunch dinner american', '55a2f899498e55581915d989'),
+		new MapLocation("McDonald's", 43.112218, -94.668174, 'breakfast lunch dinner american fast food ice cream', '4d18efb01356a0932759e682')
 	]);
 
 	self.currentFilter = ko.observable();
@@ -49,7 +57,7 @@ function MapViewModel(){
 				// the input filter string
 				var filter = self.currentFilter().toLowerCase();
 				// the 'filter' string for location containing terms to use by filter
-				var locationStr = loc.filter
+				var locationStr = loc.filter;
 				// index value of the filter in our locationStr; -1 if not present
 				var strIndex = locationStr.indexOf(filter);
 				// if the filter term is present in out location filter string,
@@ -117,7 +125,6 @@ function MapViewModel(){
 	};
 
 	self.listClick = function(e){
-		// console.log($(this));
 		var listName = e.name;
 		for (var i=0; i<markers.length; i++){
 			var marker = markers[i];
@@ -134,19 +141,22 @@ function MapViewModel(){
 		infoWindow.setContent('<div id="info-window"><span class="info-title">' + name + '</span><br><span class="info-address"></span></div>');
 		infoWindow.open(map, marker);
 		var foursquareURL = foursquareBaseURL + marker.foursquareid + foursquareTokensURL;
+		// TODO: save ajax request data to variable to eliminate redundant requests
+		// in the same session (will be taxing on Foursquare request limit). This
+		// structure is fine for demo/prototype purposes.
 		$.getJSON(foursquareURL)
-			.done(function(data){
-				var formattedAddress = data.response.venue.location.formattedAddress;
-				var $infoAddress = $(".info-address");
-				// setting the text of $infoAdress to "" prevents multiple appends of
-				// formattedAddress from multiple fast clicks
-				$infoAddress.text("");
-				if (formattedAddress.length > 2){
-					$infoAddress.append(data.response.venue.location.formattedAddress[0]);
-				} else {
-					$infoAddress.append("No Address Available");
-				}
-			})
+		.done(function(data){
+			var formattedAddress = data.response.venue.location.formattedAddress;
+			var $infoAddress = $(".info-address");
+			// setting the text of $infoAdress to "" prevents multiple appends of
+			// formattedAddress from multiple fast clicks
+			$infoAddress.text("");
+			if (formattedAddress.length > 2){
+				$infoAddress.append(data.response.venue.location.formattedAddress[0]);
+			} else {
+				$infoAddress.append("No Address Available");
+			}
+		});
 	};
 
 	self.ajaxTest = function(){
