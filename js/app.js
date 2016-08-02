@@ -131,6 +131,8 @@ function MapViewModel(){
 			var markerName = marker.name;
 			if (listName == markerName){
 				self.showInfoWindow(markerName, marker);
+				map.setZoom(16);
+				map.panTo(marker.getPosition());
 			};
 		};
 
