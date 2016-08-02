@@ -144,6 +144,15 @@ function MapViewModel(){
 		// clicked
 		map.setZoom(16);
 		map.panTo(marker.getPosition());
+		// Immediately Invoke Function Expression (IIFE) is necessary to to clear
+		// animations on other markers, set by previous click events
+		(function(){
+			for (var i=0; i<markers.length; i++){
+				var marker = markers[i];
+				marker.setAnimation(null);
+			};
+		})();
+		marker.setAnimation(google.maps.Animation.BOUNCE);
 		infoWindow.setContent('<div id="info-window"><span class="info-title">' + name + '</span>'
 								+ '<br><span class="info-address"></span>'
 								+ '<br><span class="info-rating"></span>'
