@@ -138,7 +138,10 @@ function MapViewModel(){
 
 	self.showInfoWindow = function(name, marker){
 		infoWindow.close();
-		infoWindow.setContent('<div id="info-window"><span class="info-title">' + name + '</span><br><span class="info-address"></span></div>');
+		infoWindow.setContent('<div id="info-window"><span class="info-title">' + name + '</span>'
+								+ '<br><span class="info-address"></span>'
+								+ '<br><span class="info-rating"></span>'
+								+ '</div>');
 		infoWindow.open(map, marker);
 		var foursquareURL = foursquareBaseURL + marker.foursquareid + foursquareTokensURL;
 		// TODO: save ajax request data to variable to eliminate redundant requests
@@ -147,14 +150,24 @@ function MapViewModel(){
 		$.getJSON(foursquareURL)
 		.done(function(data){
 			var formattedAddress = data.response.venue.location.formattedAddress;
+			var rating = data.response.venue.rating;
 			var $infoAddress = $(".info-address");
+			var $infoRating = $(".info-rating");
 			// setting the text of $infoAdress to "" prevents multiple appends of
 			// formattedAddress from multiple fast clicks
 			$infoAddress.text("");
+			// the conditional using length > 2 will append an error message when the
+			// address is not available
 			if (formattedAddress.length > 2){
 				$infoAddress.append(data.response.venue.location.formattedAddress[0]);
 			} else {
 				$infoAddress.append("No Address Available");
+			}
+			// conditional produces error if no rating is available
+			if (rating){
+				$infoRating.append(rating);
+			} else {
+				$infoRating.append("no rating available");
 			}
 		});
 	};
