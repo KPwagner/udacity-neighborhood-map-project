@@ -131,8 +131,7 @@ function MapViewModel(){
 			var markerName = marker.name;
 			if (listName == markerName){
 				self.showInfoWindow(markerName, marker);
-				map.setZoom(16);
-				map.panTo(marker.getPosition());
+
 			};
 		};
 
@@ -140,6 +139,11 @@ function MapViewModel(){
 
 	self.showInfoWindow = function(name, marker){
 		infoWindow.close();
+		// setZoom and panTo zoom in the map a little and pan to the clicked
+		// location; this happens when either the marker or the list item is
+		// clicked
+		map.setZoom(16);
+		map.panTo(marker.getPosition());
 		infoWindow.setContent('<div id="info-window"><span class="info-title">' + name + '</span>'
 								+ '<br><span class="info-address"></span>'
 								+ '<br><span class="info-rating"></span>'
