@@ -49,12 +49,12 @@ input {
 }
 
 .sidebar {
-	position: absolute;
+	position: relative;
 	top: 0;
 	left: 0;
 	display: inline-block;
 	height: 100vh;
-	width: 400px;
+	width: 440px;
 	margin: 0;
 	padding: 0;
 	background-color: rgba(0,0,0,0.7);
@@ -64,11 +64,27 @@ input {
 
 }
 
+.collapse {
+	left: -400px;
+}
+
+.sidebar-show-hide {
+	display: block;
+	width: 40px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-color: rgba(0,0,0,0.3);
+	z-index: 1;
+	text-align: center;
+}
+
 .sidebar-top {
 	height: 180px;
+	width: 100%;
 	margin: 0;
-	padding: 0 10px;
-	background-color: rgba(0,0,0,.3);
+	padding: 0 40px 0 10px;
+	background-color: rgba(0,0,0,0.3);
 }
 
 .sidebar-bottom {

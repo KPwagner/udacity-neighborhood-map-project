@@ -144,7 +144,7 @@ function MapViewModel(){
 		// clicked
 		map.setZoom(16);
 		map.panTo(marker.getPosition());
-		// Immediately Invoke Function Expression (IIFE) is necessary to to clear
+		// Immediately Invoke Function Expression (IIFE) is necessary to clear
 		// animations on other markers, set by previous click events
 		(function(){
 			for (var i=0; i<markers.length; i++){
@@ -187,11 +187,13 @@ function MapViewModel(){
 		});
 	};
 
-	self.ajaxTest = function(){
-		var url = "https://api.foursquare.com/v2/venues/4bb3d81b2397b713a8b338b3?client_id=UYBI4GGI2LFQ2153VJ053EDKAGB1OUBTUQ4UBDMDUJXE50YG&client_secret=E4HB1GCMBJJ5CUAZQKWJ4NAGLW4DBO4VDPMRDVXEDZKSF4AR&v=20160621"
-		$.getJSON(url, function(data){
-			console.log(data.response.venue.location.formattedAddress);
-		});
+	self.sidebarShowHide = function(){
+		var $sidebar = $(".sidebar");
+		if ($sidebar.hasClass("collapse")){
+			$sidebar.removeClass("collapse")
+		} else{
+			$sidebar.addClass("collapse");
+		}
 	};
 }
 
