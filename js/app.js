@@ -188,14 +188,23 @@ function MapViewModel(){
 	};
 
 	self.sidebarShowHide = function(){
+		// sidebarShowHide moves the sidebar off screen and moves the
+		// sidebar-show-hide div down to avoid covering Google maps selectors. This
+		// function is triggered by clicking on the sidebar-show-hide div.
 		var $sidebar = $(".sidebar");
 		var $sidebarShowHide = $(".sidebar-show-hide");
 		if ($sidebar.hasClass("collapse")){
-			$sidebar.removeClass("collapse")
-			$sidebarShowHide.css("background-image", "url('/imgs/collapse_gray_left.png')");
+			$sidebar.removeClass("collapse").css("box-shadow", "3px 3px 10px 0px rgba(0,0,0,0.5)");
+			$sidebarShowHide.css({
+									"background-image": "url('/imgs/collapse_gray_left.png')",
+									"top": "10px"
+								});
 		} else{
-			$sidebar.addClass("collapse");
-			$sidebarShowHide.css("background-image", "url('/imgs/collapse_gray_right.png')");
+			$sidebar.addClass("collapse").css("box-shadow", "none");
+			$sidebarShowHide.css({
+									"background-image": "url('/imgs/collapse_gray_right.png')",
+									"top": "80px"
+								});
 		}
 	};
 }

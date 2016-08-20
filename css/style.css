@@ -57,7 +57,8 @@ input {
 	width: 400px;
 	margin: 0;
 	padding: 0;
-	background-color: rgba(0,0,0,0.7);
+	background-color: rgba(255,255,255,0.7);
+	box-shadow: 2px 0px 10px 0px rgba(0,0,0,0.5);
 	overflow: visible;
 	z-index: 1;
 	transition: left 0.5s;
@@ -70,9 +71,11 @@ input {
 
 .sidebar-show-hide {
 	display: block;
-	width: 50px;
-	height: 40px;
+	width: 40px;
+	height: 30px;
 	position: absolute;
+	/* sidebarShowHide function increases top px value to avoiding covering
+	Google maps terrain/satellite selector */
 	top: 10px;
 	left: 100%;
 	padding: 0 10px;
@@ -85,9 +88,12 @@ input {
 	border-left: none;
 	border-top-right-radius: 3px;
 	border-bottom-right-radius: 3px;
+	box-shadow: 1px 1px 3px 0px rgba(0,0,0,0.5);
 	z-index: 1;
 	text-align: center;
 	overflow: visible;
+	cursor: pointer;
+	transition: top 0.3s;
 }
 
 #collapse-img {
@@ -104,6 +110,9 @@ input {
 	padding: 0 10px;
 	/* must be set to opaque background to "hide" the scroll from sidebar-bottom */
 	background-color: rgba(24,146,238,1);
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	box-shadow: 0px 7px 10px -5px rgba(0,0,0,0.5);
 	z-index: 3;
 }
 
@@ -115,7 +124,7 @@ input {
 	width: 100%;
 	margin: 0;
 	padding: 0;
-	padding-top: 180px;
+	padding-top: 190px;
 	overflow-y: scroll;
 	z-index: 2;
 }
@@ -127,7 +136,7 @@ input {
 
 .location-list-item {
 	padding: 5px 0 5px 15px;
-	color: white;
+	color: #444;
 	font-size: 1.2em;
 	letter-spacing: 0.1em;
 }
