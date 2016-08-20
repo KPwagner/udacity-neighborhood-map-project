@@ -49,17 +49,16 @@ input {
 }
 
 .sidebar {
-	position: relative;
+	position: absolute;
 	top: 0;
 	left: 0;
 	display: inline-block;
 	height: 100vh;
-	width: 440px;
+	width: 400px;
 	margin: 0;
 	padding: 0;
 	background-color: rgba(0,0,0,0.7);
-	overflow: hidden;
-	overflow-y: scroll;
+	overflow: visible;
 	z-index: 1;
 
 }
@@ -73,23 +72,37 @@ input {
 	width: 40px;
 	position: absolute;
 	top: 0;
-	right: 0;
+	left: 100%;
 	background-color: rgba(0,0,0,0.3);
 	z-index: 1;
 	text-align: center;
+	overflow: visible;
 }
 
 .sidebar-top {
+	position: absolute;
+	top: 0;
+	left: 0;
 	height: 180px;
 	width: 100%;
 	margin: 0;
-	padding: 0 40px 0 10px;
-	background-color: rgba(0,0,0,0.3);
+	padding: 0 10px;
+	/* must be set to opaque background to "hide" the scroll from sidebar-bottom */
+	background-color: rgba(0,0,0,1);
+	z-index: 3;
 }
 
 .sidebar-bottom {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
 	margin: 0;
 	padding: 0;
+	padding-top: 180px;
+	overflow-y: scroll;
+	z-index: 2;
 }
 
 .location-list {
@@ -104,8 +117,14 @@ input {
 	letter-spacing: 0.1em;
 }
 
+.sidebar-footer {
+	height: 10vh;
+	background-color: blue;
+}
+
 #map {
 	display: inline-block;
+	/*display: none;*/
 	position: absolute;
 	top: 0;
 	left: 0;
