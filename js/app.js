@@ -189,10 +189,13 @@ function MapViewModel(){
 
 	self.sidebarShowHide = function(){
 		var $sidebar = $(".sidebar");
+		var $sidebarShowHide = $(".sidebar-show-hide");
 		if ($sidebar.hasClass("collapse")){
 			$sidebar.removeClass("collapse")
+			$sidebarShowHide.css("background-image", "url('/imgs/collapse_gray_left.png')");
 		} else{
 			$sidebar.addClass("collapse");
+			$sidebarShowHide.css("background-image", "url('/imgs/collapse_gray_right.png')");
 		}
 	};
 }

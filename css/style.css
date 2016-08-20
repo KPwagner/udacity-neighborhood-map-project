@@ -60,23 +60,38 @@ input {
 	background-color: rgba(0,0,0,0.7);
 	overflow: visible;
 	z-index: 1;
-
+	transition: left 0.5s;
 }
 
 .collapse {
 	left: -400px;
+	transition: left 0.5s;
 }
 
 .sidebar-show-hide {
 	display: block;
-	width: 40px;
+	width: 50px;
+	height: 40px;
 	position: absolute;
-	top: 0;
+	top: 10px;
 	left: 100%;
-	background-color: rgba(0,0,0,0.3);
+	padding: 0 10px;
+	background-color: #f3f3f3;
+	background-image: url("/imgs/collapse_gray_left.png");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	border: 1px solid rgba(24,146,238,1);
+	border-left: none;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
 	z-index: 1;
 	text-align: center;
 	overflow: visible;
+}
+
+#collapse-img {
+	width: 100%;
 }
 
 .sidebar-top {
@@ -88,7 +103,7 @@ input {
 	margin: 0;
 	padding: 0 10px;
 	/* must be set to opaque background to "hide" the scroll from sidebar-bottom */
-	background-color: rgba(0,0,0,1);
+	background-color: rgba(24,146,238,1);
 	z-index: 3;
 }
 
