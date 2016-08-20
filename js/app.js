@@ -155,6 +155,7 @@ function MapViewModel(){
 		marker.setAnimation(google.maps.Animation.BOUNCE);
 		infoWindow.setContent('<div id="info-window"><span class="info-title">' + name + '</span>'
 								+ '<br><span class="info-address"></span>'
+								+ '<img class="info-img">'
 								+ '<br><span class="info-rating"></span>'
 								+ '</div>');
 		infoWindow.open(map, marker);
@@ -164,9 +165,12 @@ function MapViewModel(){
 		// structure is fine for demo/prototype purposes.
 		$.getJSON(foursquareURL)
 		.done(function(data){
+			console.log(data.response);
 			var formattedAddress = data.response.venue.location.formattedAddress;
 			var rating = data.response.venue.rating;
+			var locationImage = data.response.venue.bestPhoto;
 			var $infoAddress = $(".info-address");
+			var $infoImg = $(".info-img");
 			var $infoRating = $(".info-rating");
 			// setting the text of $infoAdress to "" prevents multiple appends of
 			// formattedAddress from multiple fast clicks
@@ -175,11 +179,18 @@ function MapViewModel(){
 			// address is not available
 			if (formattedAddress.length > 2){
 				$infoAddress.append(data.response.venue.location.formattedAddress[0]);
+				$infoAddress.append("<br>Emmetsburg, IA 50536");
 			} else {
 				$infoAddress.append("No Address Available");
 			}
+			if (locationImage) {
+				$infoImg.attr("src", locationImage.prefix + "75x75" + locationImage.suffix);
+			} else {
+				$infoImg.attr("src", "/imgs/default_restaurant.png");
+			}
 			// conditional produces error if no rating is available
 			if (rating){
+				rating = "Rating: " + rating + "/10";
 				$infoRating.append(rating);
 			} else {
 				$infoRating.append("no rating available");
